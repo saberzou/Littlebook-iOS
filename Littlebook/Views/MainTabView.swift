@@ -24,7 +24,7 @@ struct MainTabView: View {
                 selectedDate = store.today?.date ?? ""
             }
         }
-        .onChange(of: store.items) { _ in
+        .onChange(of: store.items.count) { _ in
             if selectedDate.isEmpty {
                 selectedDate = store.today?.date ?? ""
             }
