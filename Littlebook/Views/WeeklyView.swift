@@ -116,7 +116,7 @@ private struct BookCard: View {
 
             Image(systemName: "chevron.right")
                 .font(.caption)
-                .foregroundColor(.tertiary)
+                .foregroundStyle(.tertiary)
         }
         .padding(16)
         .background(
