@@ -14,6 +14,12 @@ struct Book: Codable {
     let author: String
     let category: String
     let desc: String
+
+    var amazonSearchURL: URL? {
+        let query = "\(title) \(author)"
+        guard let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return nil }
+        return URL(string: "https://www.amazon.com/s?k=\(encoded)")
+    }
 }
 
 struct Wallpaper: Codable {
