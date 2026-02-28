@@ -103,7 +103,7 @@ class ContentStore: ObservableObject {
         guard let response = try? JSONDecoder().decode(Response.self, from: data),
               let thumbnail = response.items?.first?.volumeInfo.imageLinks?.thumbnail else { return nil }
 
-        var urlStr = thumbnail
+        let urlStr = thumbnail
             .replacingOccurrences(of: "http://", with: "https://")
             .replacingOccurrences(of: "zoom=1", with: "zoom=3")
         return URL(string: urlStr)
