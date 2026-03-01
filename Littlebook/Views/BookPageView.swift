@@ -13,8 +13,12 @@ struct BookPageView: View {
                     .foregroundColor(.gray)
                     .padding(.top, 16)
 
-                ThreeDBookView(book: item.book)
-                    .padding(.vertical, 8)
+                BookCoverView(
+                    isbn: item.book.isbn,
+                    title: item.book.title,
+                    author: item.book.author
+                )
+                .padding(.vertical, 8)
 
                 VStack(spacing: 10) {
                     Text(item.book.title)
