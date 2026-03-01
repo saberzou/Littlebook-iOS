@@ -28,35 +28,20 @@ struct DailyView: View {
             }
         }
         .onAppear {
-            currentDate = store.today?.date
+            if currentDate == nil {
+                currentDate = store.today?.date
+            }
+        }
+        .onChange(of: store.items) { _ in
+            if currentDate == nil {
+                currentDate = store.today?.date
+            }
         }
     }
 
     private func cardContent(_ item: DailyContent) -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 32) {
-                // Wallpaper
-                if let wp = item.wallpaper, let url = wp.portraitURL {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height: 400)
-                                .clipped()
-                                .cornerRadius(16)
-                                .overlay(wallpaperOverlay(wp))
-                        case .failure:
-                            wallpaperPlaceholder()
-                        default:
-                            wallpaperPlaceholder()
-                                .overlay(ProgressView().tint(.white))
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                }
-
                 // Book section
                 VStack(spacing: 16) {
                     Text(item.book.category.uppercased())
@@ -65,20 +50,12 @@ struct DailyView: View {
                         .tracking(2)
                         .foregroundColor(.gray)
 
-                    // Book cover
-                    AsyncImage(url: URL(string: "https://covers.openlibrary.org/b/isbn/\(item.book.isbn)-L.jpg?default=false")) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 240)
-                                .cornerRadius(8)
-                                .shadow(color: .white.opacity(0.1), radius: 20)
-                        default:
-                            bookPlaceholder(item.book)
-                        }
-                    }
+                    // Book cover (3D, gyroscope-reactive)
+                    BookCoverView(
+                        isbn: item.book.isbn,
+                        title: item.book.title,
+                        author: item.book.author
+                    )
 
                     Text(item.book.title)
                         .font(.title2)
@@ -127,52 +104,6 @@ struct DailyView: View {
         }
     }
 
-    private func wallpaperOverlay(_ wp: Wallpaper) -> some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                if let creditURL = wp.creditURL {
-                    Link(destination: creditURL) {
-                        Text("📷 \(wp.user)")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.7))
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(8)
-                    }
-                }
-            }
-            .padding(12)
-        }
-    }
-
-    private func wallpaperPlaceholder() -> some View {
-        RoundedRectangle(cornerRadius: 16)
-            .fill(Color.gray.opacity(0.15))
-            .frame(height: 400)
-    }
-
-    private func bookPlaceholder(_ book: Book) -> some View {
-        RoundedRectangle(cornerRadius: 8)
-            .fill(Color(white: 0.1))
-            .frame(width: 160, height: 240)
-            .overlay(
-                VStack(spacing: 8) {
-                    Text(book.title)
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white.opacity(0.8))
-                        .multilineTextAlignment(.center)
-                    Text(book.author)
-                        .font(.caption2)
-                        .foregroundColor(.gray)
-                }
-                .padding()
-            )
-    }
-
     private var swipeGesture: some Gesture {
         DragGesture()
             .updating($dragOffset) { value, state, _ in
@@ -180,14 +111,15 @@ struct DailyView: View {
             }
             .onEnded { value in
                 let threshold: CGFloat = 50
+                let fromDate = currentDate ?? store.today?.date ?? ""
                 if value.translation.width < -threshold {
                     // Swipe left → next
-                    if let next = store.adjacentDate(from: currentDate ?? "", direction: 1) {
+                    if let next = store.adjacentDate(from: fromDate, direction: 1) {
                         currentDate = next
                     }
                 } else if value.translation.width > threshold {
                     // Swipe right → prev
-                    if let prev = store.adjacentDate(from: currentDate ?? "", direction: -1) {
+                    if let prev = store.adjacentDate(from: fromDate, direction: -1) {
                         currentDate = prev
                     }
                 }
