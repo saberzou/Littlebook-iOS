@@ -245,6 +245,7 @@
 				A1000020 /* WeeklyView.swift in Sources */,
 				A1000022 /* BookCoverView.swift in Sources */,
 				A1000023 /* BookMotionManager.swift in Sources */,
+				A1000024 /* BookShaders.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
