@@ -16,20 +16,23 @@ struct MainTabView: View {
     enum ContentTab: Int, CaseIterable {
         case book = 0
         case quote = 1
-        case settings = 2
-        
+        case listen = 2
+        case settings = 3
+
         var title: String {
             switch self {
             case .book: return "Book"
             case .quote: return "Quote"
+            case .listen: return "Listen"
             case .settings: return "Settings"
             }
         }
-        
+
         var icon: String {
             switch self {
             case .book: return "book.fill"
             case .quote: return "quote.opening"
+            case .listen: return "waveform"
             case .settings: return "gearshape.fill"
             }
         }
@@ -46,13 +49,19 @@ struct MainTabView: View {
                     Label(ContentTab.book.title, systemImage: ContentTab.book.icon)
                 }
                 .tag(ContentTab.book)
-            
+
             contentView(for: .quote)
                 .tabItem {
                     Label(ContentTab.quote.title, systemImage: ContentTab.quote.icon)
                 }
                 .tag(ContentTab.quote)
-            
+
+            contentView(for: .listen)
+                .tabItem {
+                    Label(ContentTab.listen.title, systemImage: ContentTab.listen.icon)
+                }
+                .tag(ContentTab.listen)
+
             SettingsView()
                 .tabItem {
                     Label(ContentTab.settings.title, systemImage: ContentTab.settings.icon)
@@ -70,8 +79,10 @@ struct MainTabView: View {
             }
         }
         .onChange(of: selectedDate) { _ in
-            if contentTab != .settings {
-                contentTab = .book // Reset to book tab when date changes (unless on settings)
+            // Reset to Book tab when date changes, unless on Settings or Listen
+            // (Listen keeps playing across date changes so the user can browse while listening)
+            if contentTab != .settings && contentTab != .listen {
+                contentTab = .book
             }
         }
     }
@@ -109,6 +120,8 @@ struct MainTabView: View {
                             BookPageView(item: item)
                         case .quote:
                             QuotePageView(item: item)
+                        case .listen:
+                            PodcastPageView(item: item)
                         case .settings:
                             EmptyView()
                         }

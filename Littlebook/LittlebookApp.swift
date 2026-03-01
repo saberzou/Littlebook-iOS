@@ -3,11 +3,13 @@ import SwiftUI
 @main
 struct LittlebookApp: App {
     @StateObject private var store = ContentStore()
+    @StateObject private var podcastPlayer = PodcastPlayer()
 
     var body: some Scene {
         WindowGroup {
             MainTabView()
                 .environmentObject(store)
+                .environmentObject(podcastPlayer)
                 .task { await store.load() }
                 .tint(Color(hex: "#F8705E"))
         }

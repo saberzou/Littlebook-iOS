@@ -6,6 +6,20 @@ struct DailyContent: Codable, Identifiable {
     let book: Book
     let wallpaper: Wallpaper?
     let quote: Quote
+    let podcast: Podcast?   // nil for dates before the podcast feature launched
+}
+
+struct Podcast: Codable {
+    /// HTTPS URL to the pre-generated .mp3 file on the CDN
+    let audioURL: String
+    /// Duration in seconds — pre-seeded from JSON so the progress bar renders before AVPlayer loads
+    let duration: Int
+    /// Full spoken-word transcript of the episode (accessibility + script accordion)
+    let script: String
+    /// One-sentence hook shown in the player UI before playback starts
+    let teaser: String
+
+    var resolvedAudioURL: URL? { URL(string: audioURL) }
 }
 
 struct Book: Codable {
