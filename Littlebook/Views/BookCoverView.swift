@@ -109,10 +109,9 @@ struct BookCoverView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: coverWidth, height: height)
                             .clipped()
-                            .metalSpecular(
-                                rotation: totalRotation,
-                                size: CGSize(width: coverWidth, height: height)
-                            )
+                            // Metal specular shader disabled until Metal Toolchain
+                            // is installed (Xcode → Settings → Components).
+                            // The specularGradient overlay provides the same effect.
                     default:
                         coverPlaceholder
                     }
@@ -191,25 +190,6 @@ struct BookCoverView: View {
                         .clamped(to: -75...75)
                 }
             }
-    }
-}
-
-// MARK: - Metal Specular Modifier
-extension View {
-    /// Applies a per-pixel Metal specular shader (iOS 17+).
-    /// On iOS 16 the caller's gradient overlay provides the same visual cue.
-    @ViewBuilder
-    func metalSpecular(rotation: Double, size: CGSize) -> some View {
-        if #available(iOS 17, *) {
-            self.colorEffect(
-                ShaderLibrary.bookSpecular(
-                    .float2(Float(size.width), Float(size.height)),
-                    .float(Float(rotation * .pi / 180.0))
-                )
-            )
-        } else {
-            self
-        }
     }
 }
 
