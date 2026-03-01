@@ -12,6 +12,10 @@
 		148767A42F53DE0300827C62 /* RESTRUCTURE_NOTES.md in Resources */ = {isa = PBXBuildFile; fileRef = 148767A32F53DE0300827C62 /* RESTRUCTURE_NOTES.md */; };
 		148767A62F53E13F00827C62 /* LIQUID_GLASS_BUTTON.md in Resources */ = {isa = PBXBuildFile; fileRef = 148767A52F53E13F00827C62 /* LIQUID_GLASS_BUTTON.md */; };
 		148767A82F53E15100827C62 /* LiquidGlassButtonExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148767A72F53E15100827C62 /* LiquidGlassButtonExamples.swift */; };
+		A1000022 /* BookCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000022 /* BookCoverView.swift */; };
+		A1000023 /* BookMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000023 /* BookMotionManager.swift */; };
+		A1000024 /* BookShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = A2000024 /* BookShaders.metal */; };
+		A1000025 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2000025 /* CoreMotion.framework */; };
 		A1000001 /* LittlebookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* LittlebookApp.swift */; };
 		A1000007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2000007 /* Assets.xcassets */; };
 		A1000008 /* DailyContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000008 /* DailyContent.swift */; };
@@ -36,6 +40,10 @@
 		148767A32F53DE0300827C62 /* RESTRUCTURE_NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RESTRUCTURE_NOTES.md; sourceTree = "<group>"; };
 		148767A52F53E13F00827C62 /* LIQUID_GLASS_BUTTON.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LIQUID_GLASS_BUTTON.md; sourceTree = "<group>"; };
 		148767A72F53E15100827C62 /* LiquidGlassButtonExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassButtonExamples.swift; sourceTree = "<group>"; };
+		A2000022 /* BookCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCoverView.swift; sourceTree = "<group>"; };
+		A2000023 /* BookMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMotionManager.swift; sourceTree = "<group>"; };
+		A2000024 /* BookShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BookShaders.metal; sourceTree = "<group>"; };
+		A2000025 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		A2000000 /* Littlebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Littlebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2000001 /* LittlebookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlebookApp.swift; sourceTree = "<group>"; };
 		A2000007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000025 /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +91,7 @@
 				A2000007 /* Assets.xcassets */,
 				A4001000 /* Models */,
 				A4001001 /* Services */,
+				A4001003 /* Shaders */,
 				A4001002 /* Views */,
 			);
 			path = Littlebook;
@@ -108,8 +118,17 @@
 			children = (
 				A2000009 /* ContentStore.swift */,
 				A2000010 /* ThemeManager.swift */,
+				A2000023 /* BookMotionManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		A4001003 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A2000024 /* BookShaders.metal */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 		A4001002 /* Views */ = {
@@ -125,6 +144,7 @@
 				A2000018 /* QuotePageView.swift */,
 				A2000019 /* WallpaperPageView.swift */,
 				A2000020 /* WeeklyView.swift */,
+				A2000022 /* BookCoverView.swift */,
 				1487679F2F534E4000827C62 /* Book3DView.swift */,
 				148767A12F53DDC300827C62 /* SettingsView.swift */,
 				148767A32F53DE0300827C62 /* RESTRUCTURE_NOTES.md */,
@@ -223,6 +243,9 @@
 				A1000018 /* QuotePageView.swift in Sources */,
 				A1000019 /* WallpaperPageView.swift in Sources */,
 				A1000020 /* WeeklyView.swift in Sources */,
+				A1000022 /* BookCoverView.swift in Sources */,
+				A1000023 /* BookMotionManager.swift in Sources */,
+				A1000024 /* BookShaders.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +381,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMotionUsageDescription = "Used to tilt the book cover when you move your phone.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Littlebook saves wallpapers to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -387,6 +411,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMotionUsageDescription = "Used to tilt the book cover when you move your phone.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Littlebook saves wallpapers to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
