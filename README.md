@@ -21,12 +21,24 @@ Littlebook/
 daily-data.json             — Content data (synced from web repo)
 ```
 
-## Setup
+## Setup & Build in Xcode
 
-1. Open in Xcode (create project via File → New → Project → App, then replace files)
-2. Or use `xcodegen` / `tuist` to generate `.xcodeproj` from these sources
-3. Add `daily-data.json` to the bundle (drag into Xcode, check "Copy items")
-4. Build & run on simulator or device
+1. **Open the project**  
+   Double-click `Littlebook.xcodeproj` in the project root, or in Xcode: **File → Open** and select the `Littlebook-iOS` folder (or the `.xcodeproj` file).
+
+2. **Select a run destination**  
+   In the Xcode toolbar, choose a simulator (e.g. **iPhone 17**) or a connected device from the scheme/destination menu.
+
+3. **Build and run**  
+   Press **⌘R** (or click the Run button) to build and launch the app.
+
+4. **From the command line** (optional):
+   ```bash
+   xcodebuild -scheme Littlebook -destination 'platform=iOS Simulator,name=iPhone 17' build
+   ```
+
+**Requirements:** Xcode 15+, iOS 17+ deployment target.  
+To bundle `daily-data.json` in the app (e.g. for the daily-content flow), drag it into the **Littlebook** group in Xcode and check **Copy items if needed**.
 
 ## Content Updates
 

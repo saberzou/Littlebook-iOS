@@ -2,196 +2,87 @@ import SwiftUI
 
 struct DailyView: View {
     @EnvironmentObject var store: ContentStore
-    @State private var currentDate: String?
-    @GestureState private var dragOffset: CGFloat = 0
+    @EnvironmentObject var theme: ThemeManager
+    @Binding var selectedDate: String
+    @State private var activePage: Int = 0
 
-    var currentItem: DailyContent? {
-        if let date = currentDate { return store.item(for: date) }
-        return store.today
+    private var currentItem: DailyContent? {
+        store.item(for: selectedDate)
     }
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
-
             if store.isLoading {
                 ProgressView()
-                    .tint(.white)
+                    .scaleEffect(1.2)
+                    .tint(.primary)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if let item = currentItem {
-                cardContent(item)
-                    .offset(x: dragOffset)
-                    .gesture(swipeGesture)
-                    .animation(.spring(response: 0.35), value: currentDate)
-            } else {
-                Text("No content for today")
-                    .foregroundColor(.gray)
-            }
-        }
-        .onAppear {
-            currentDate = store.today?.date
-        }
-    }
+                VStack(spacing: 0) {
+                    // Header
+                    HStack {
+                        Text(formattedDate(selectedDate))
+                            .font(.subheadline.weight(.medium))
+                            .foregroundColor(.secondary)
 
-    private func cardContent(_ item: DailyContent) -> some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 32) {
-                // Wallpaper
-                if let wp = item.wallpaper, let url = wp.portraitURL {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height: 400)
-                                .clipped()
-                                .cornerRadius(16)
-                                .overlay(wallpaperOverlay(wp))
-                        case .failure:
-                            wallpaperPlaceholder()
-                        default:
-                            wallpaperPlaceholder()
-                                .overlay(ProgressView().tint(.white))
+                        Spacer()
+
+                        Button {
+                            withAnimation { theme.isDark.toggle() }
+                        } label: {
+                            Image(systemName: theme.isDark ? "sun.max" : "moon")
+                                .font(.system(size: 18))
+                                .foregroundColor(.secondary)
+                                .frame(width: 36, height: 36)
                         }
                     }
                     .padding(.horizontal, 20)
-                }
+                    .padding(.top, 8)
+                    .padding(.bottom, 4)
 
-                // Book section
-                VStack(spacing: 16) {
-                    Text(item.book.category.uppercased())
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .tracking(2)
-                        .foregroundColor(.gray)
+                    // Calendar strip
+                    CalendarStripView(selectedDate: $selectedDate)
 
-                    // Book cover
-                    AsyncImage(url: URL(string: "https://covers.openlibrary.org/b/isbn/\(item.book.isbn)-L.jpg?default=false")) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 240)
-                                .cornerRadius(8)
-                                .shadow(color: .white.opacity(0.1), radius: 20)
-                        default:
-                            bookPlaceholder(item.book)
-                        }
+                    // Page indicator
+                    pageIndicator
+
+                    // Content carousel
+                    TabView(selection: $activePage) {
+                        BookPageView(item: item)
+                            .tag(0)
+                        QuotePageView(item: item)
+                            .tag(1)
+                        WallpaperPageView(item: item)
+                            .tag(2)
                     }
-
-                    Text(item.book.title)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-
-                    Text(item.book.author)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-
-                    Text(item.book.desc)
-                        .font(.body)
-                        .foregroundColor(.gray.opacity(0.8))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 20)
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .animation(.easeInOut(duration: 0.3), value: activePage)
                 }
-
-                // Quote
-                VStack(spacing: 12) {
-                    Text("\"")
-                        .font(.system(size: 48, weight: .bold))
-                        .foregroundColor(.orange.opacity(0.6))
-                        .frame(height: 30)
-
-                    Text(item.quote.text)
-                        .font(.body)
-                        .italic()
-                        .foregroundColor(.white.opacity(0.9))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 24)
-
-                    Text("— \(item.quote.source)")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-                .padding(.vertical, 20)
-
-                // Date indicator
-                Text(formattedDate(item.date))
-                    .font(.caption2)
-                    .foregroundColor(.gray.opacity(0.5))
-                    .padding(.bottom, 40)
+            } else if !store.isLoading {
+                Text("No content available")
+                    .foregroundColor(.secondary)
             }
-            .padding(.top, 20)
+
+            // Tomorrow countdown overlay
+            if let item = currentItem, store.isTomorrow(item.date) {
+                CountdownOverlayView(targetDate: item.date)
+            }
+        }
+        .onChange(of: selectedDate) { _ in
+            activePage = 0
         }
     }
 
-    private func wallpaperOverlay(_ wp: Wallpaper) -> some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                if let creditURL = wp.creditURL {
-                    Link(destination: creditURL) {
-                        Text("📷 \(wp.user)")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.7))
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(8)
-                    }
-                }
+    private var pageIndicator: some View {
+        HStack(spacing: 8) {
+            ForEach(0..<3, id: \.self) { idx in
+                Capsule()
+                    .fill(activePage == idx ? Color.primary : Color.secondary.opacity(0.4))
+                    .frame(width: activePage == idx ? 20 : 8, height: 6)
+                    .animation(.spring(response: 0.3), value: activePage)
             }
-            .padding(12)
         }
-    }
-
-    private func wallpaperPlaceholder() -> some View {
-        RoundedRectangle(cornerRadius: 16)
-            .fill(Color.gray.opacity(0.15))
-            .frame(height: 400)
-    }
-
-    private func bookPlaceholder(_ book: Book) -> some View {
-        RoundedRectangle(cornerRadius: 8)
-            .fill(Color(white: 0.1))
-            .frame(width: 160, height: 240)
-            .overlay(
-                VStack(spacing: 8) {
-                    Text(book.title)
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white.opacity(0.8))
-                        .multilineTextAlignment(.center)
-                    Text(book.author)
-                        .font(.caption2)
-                        .foregroundColor(.gray)
-                }
-                .padding()
-            )
-    }
-
-    private var swipeGesture: some Gesture {
-        DragGesture()
-            .updating($dragOffset) { value, state, _ in
-                state = value.translation.width
-            }
-            .onEnded { value in
-                let threshold: CGFloat = 50
-                if value.translation.width < -threshold {
-                    // Swipe left → next
-                    if let next = store.adjacentDate(from: currentDate ?? "", direction: 1) {
-                        currentDate = next
-                    }
-                } else if value.translation.width > threshold {
-                    // Swipe right → prev
-                    if let prev = store.adjacentDate(from: currentDate ?? "", direction: -1) {
-                        currentDate = prev
-                    }
-                }
-            }
+        .padding(.vertical, 8)
     }
 
     private func formattedDate(_ dateStr: String) -> String {
