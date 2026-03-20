@@ -80,7 +80,7 @@ struct MainTabView: View {
         }
         .onChange(of: selectedDate) { _ in
             // Reset to Book tab when date changes, unless on Settings or Listen
-            // (Listen keeps playing across date changes so the user can browse while listening)
+            // (Listen keeps playing across date changes)
             if contentTab != .settings && contentTab != .listen {
                 contentTab = .book
             }

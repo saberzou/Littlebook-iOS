@@ -7,19 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14670E122F5D169A009B184F /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14670E112F5D169A009B184F /* NotificationManager.swift */; };
+		14670E142F5D16A3009B184F /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14670E132F5D16A3009B184F /* FavoritesManager.swift */; };
+		14670E162F5D17C5009B184F /* QuoteImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14670E152F5D17C5009B184F /* QuoteImageGenerator.swift */; };
+		14670E182F5D1869009B184F /* SharedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14670E172F5D1869009B184F /* SharedDataManager.swift */; };
+		14670E1C2F5DB195009B184F /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14670E1B2F5DB195009B184F /* FavoritesView.swift */; };
 		148767A02F534E4000827C62 /* Book3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1487679F2F534E4000827C62 /* Book3DView.swift */; };
 		148767A22F53DDC300827C62 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148767A12F53DDC300827C62 /* SettingsView.swift */; };
 		148767A42F53DE0300827C62 /* RESTRUCTURE_NOTES.md in Resources */ = {isa = PBXBuildFile; fileRef = 148767A32F53DE0300827C62 /* RESTRUCTURE_NOTES.md */; };
 		148767A62F53E13F00827C62 /* LIQUID_GLASS_BUTTON.md in Resources */ = {isa = PBXBuildFile; fileRef = 148767A52F53E13F00827C62 /* LIQUID_GLASS_BUTTON.md */; };
 		148767A82F53E15100827C62 /* LiquidGlassButtonExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148767A72F53E15100827C62 /* LiquidGlassButtonExamples.swift */; };
-		A1000022 /* BookCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000022 /* BookCoverView.swift */; };
-		A1000023 /* BookMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000023 /* BookMotionManager.swift */; };
-		A1000024 /* BookShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = A2000024 /* BookShaders.metal */; };
-		A1000025 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2000025 /* CoreMotion.framework */; };
-		A1000030 /* PodcastPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000030 /* PodcastPlayer.swift */; };
-		A1000031 /* PodcastPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000031 /* PodcastPageView.swift */; };
-		A1000032 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2000032 /* AVFoundation.framework */; };
-		A1000033 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2000033 /* MediaPlayer.framework */; };
 		A1000001 /* LittlebookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* LittlebookApp.swift */; };
 		A1000007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2000007 /* Assets.xcassets */; };
 		A1000008 /* DailyContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000008 /* DailyContent.swift */; };
@@ -36,22 +33,27 @@
 		A1000019 /* WallpaperPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000019 /* WallpaperPageView.swift */; };
 		A1000020 /* WeeklyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000020 /* WeeklyView.swift */; };
 		A1000021 /* daily-data.json in Resources */ = {isa = PBXBuildFile; fileRef = A2000021 /* daily-data.json */; };
+		A1000022 /* BookCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000022 /* BookCoverView.swift */; };
+		A1000023 /* BookMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000023 /* BookMotionManager.swift */; };
+		A1000024 /* BookShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = A2000024 /* BookShaders.metal */; };
+		A1000025 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2000025 /* CoreMotion.framework */; };
+		A1000030 /* PodcastPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000030 /* PodcastPlayer.swift */; };
+		A1000031 /* PodcastPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000031 /* PodcastPageView.swift */; };
+		A1000032 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2000032 /* AVFoundation.framework */; };
+		A1000033 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2000033 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14670E112F5D169A009B184F /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		14670E132F5D16A3009B184F /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
+		14670E152F5D17C5009B184F /* QuoteImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteImageGenerator.swift; sourceTree = "<group>"; };
+		14670E172F5D1869009B184F /* SharedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataManager.swift; sourceTree = "<group>"; };
+		14670E1B2F5DB195009B184F /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		1487679F2F534E4000827C62 /* Book3DView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book3DView.swift; sourceTree = "<group>"; };
 		148767A12F53DDC300827C62 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		148767A32F53DE0300827C62 /* RESTRUCTURE_NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RESTRUCTURE_NOTES.md; sourceTree = "<group>"; };
 		148767A52F53E13F00827C62 /* LIQUID_GLASS_BUTTON.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LIQUID_GLASS_BUTTON.md; sourceTree = "<group>"; };
 		148767A72F53E15100827C62 /* LiquidGlassButtonExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassButtonExamples.swift; sourceTree = "<group>"; };
-		A2000022 /* BookCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCoverView.swift; sourceTree = "<group>"; };
-		A2000023 /* BookMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMotionManager.swift; sourceTree = "<group>"; };
-		A2000024 /* BookShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BookShaders.metal; sourceTree = "<group>"; };
-		A2000025 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		A2000030 /* PodcastPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastPlayer.swift; sourceTree = "<group>"; };
-		A2000031 /* PodcastPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastPageView.swift; sourceTree = "<group>"; };
-		A2000032 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		A2000033 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A2000000 /* Littlebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Littlebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2000001 /* LittlebookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlebookApp.swift; sourceTree = "<group>"; };
 		A2000007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 		A2000019 /* WallpaperPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPageView.swift; sourceTree = "<group>"; };
 		A2000020 /* WeeklyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyView.swift; sourceTree = "<group>"; };
 		A2000021 /* daily-data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "daily-data.json"; sourceTree = "<group>"; };
+		A2000022 /* BookCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCoverView.swift; sourceTree = "<group>"; };
+		A2000023 /* BookMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMotionManager.swift; sourceTree = "<group>"; };
+		A2000024 /* BookShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BookShaders.metal; sourceTree = "<group>"; };
+		A2000025 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		A2000030 /* PodcastPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastPlayer.swift; sourceTree = "<group>"; };
+		A2000031 /* PodcastPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastPageView.swift; sourceTree = "<group>"; };
+		A2000032 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A2000033 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,12 +95,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14670E102F5D1400009B184F /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				A2000025 /* CoreMotion.framework */,
+				A2000032 /* AVFoundation.framework */,
+				A2000033 /* MediaPlayer.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		A4000000 = {
 			isa = PBXGroup;
 			children = (
 				A4000001 /* Littlebook */,
 				A2000021 /* daily-data.json */,
 				A4000002 /* Products */,
+				14670E102F5D1400009B184F /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,18 +149,13 @@
 			children = (
 				A2000009 /* ContentStore.swift */,
 				A2000010 /* ThemeManager.swift */,
+				14670E132F5D16A3009B184F /* FavoritesManager.swift */,
+				14670E112F5D169A009B184F /* NotificationManager.swift */,
 				A2000023 /* BookMotionManager.swift */,
 				A2000030 /* PodcastPlayer.swift */,
+				14670E172F5D1869009B184F /* SharedDataManager.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		A4001003 /* Shaders */ = {
-			isa = PBXGroup;
-			children = (
-				A2000024 /* BookShaders.metal */,
-			);
-			path = Shaders;
 			sourceTree = "<group>";
 		};
 		A4001002 /* Views */ = {
@@ -162,8 +178,18 @@
 				148767A32F53DE0300827C62 /* RESTRUCTURE_NOTES.md */,
 				148767A52F53E13F00827C62 /* LIQUID_GLASS_BUTTON.md */,
 				148767A72F53E15100827C62 /* LiquidGlassButtonExamples.swift */,
+				14670E152F5D17C5009B184F /* QuoteImageGenerator.swift */,
+				14670E1B2F5DB195009B184F /* FavoritesView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A4001003 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A2000024 /* BookShaders.metal */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +271,7 @@
 				A1000010 /* ThemeManager.swift in Sources */,
 				148767A02F534E4000827C62 /* Book3DView.swift in Sources */,
 				A1000011 /* DailyView.swift in Sources */,
+				14670E142F5D16A3009B184F /* FavoritesManager.swift in Sources */,
 				A1000012 /* MainTabView.swift in Sources */,
 				A1000013 /* CalendarStripView.swift in Sources */,
 				A1000014 /* CountdownOverlayView.swift in Sources */,
@@ -257,9 +284,13 @@
 				A1000020 /* WeeklyView.swift in Sources */,
 				A1000022 /* BookCoverView.swift in Sources */,
 				A1000023 /* BookMotionManager.swift in Sources */,
+				14670E182F5D1869009B184F /* SharedDataManager.swift in Sources */,
 				A1000024 /* BookShaders.metal in Sources */,
 				A1000030 /* PodcastPlayer.swift in Sources */,
 				A1000031 /* PodcastPageView.swift in Sources */,
+				14670E1C2F5DB195009B184F /* FavoritesView.swift in Sources */,
+				14670E122F5D169A009B184F /* NotificationManager.swift in Sources */,
+				14670E162F5D17C5009B184F /* QuoteImageGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +419,6 @@
 		A6000005 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_KEY_UIBackgroundModes = "audio";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -400,9 +430,11 @@
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Littlebook saves wallpapers to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = audio;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -419,7 +451,6 @@
 		A6000006 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_KEY_UIBackgroundModes = "audio";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -431,9 +462,11 @@
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Littlebook saves wallpapers to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = audio;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

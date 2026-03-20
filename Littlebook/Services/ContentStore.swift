@@ -40,11 +40,20 @@ class ContentStore: ObservableObject {
         do {
             let (data, _) = try await URLSession.shared.data(from: remoteURL)
             items = try JSONDecoder().decode([DailyContent].self, from: data)
+
+            // Save to shared container for widget access
+            SharedDataManager.shared.saveDailyContent(items)
+            SharedDataManager.shared.saveLastUpdateTime()
         } catch {
-            if let url = Bundle.main.url(forResource: "daily-data", withExtension: "json"),
-               let data = try? Data(contentsOf: url),
-               let decoded = try? JSONDecoder().decode([DailyContent].self, from: data) {
+            // Try loading from shared container first
+            if let sharedItems = SharedDataManager.shared.loadDailyContent() {
+                items = sharedItems
+            } else if let url = Bundle.main.url(forResource: "daily-data", withExtension: "json"),
+                      let data = try? Data(contentsOf: url),
+                      let decoded = try? JSONDecoder().decode([DailyContent].self, from: data) {
                 items = decoded
+                // Save to shared container for widget access
+                SharedDataManager.shared.saveDailyContent(items)
             } else {
                 self.error = "Failed to load content"
             }

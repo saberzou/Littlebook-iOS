@@ -498,5 +498,39 @@
       "teaser": "The cure for perfectionism is to begin anyway — one small, imperfect piece at a time.",
       "script": "Anne Lamott's Bird by Bird is one of those rare books that writers keep on their desks and return to again and again — not just for craft advice, but for permission. Permission to write badly, to start small, and to keep going anyway. The title comes from a memory Lamott shares about her brother, who was ten years old and overwhelmed by a school report on birds he'd left until the last minute. Their father sat down beside him and said: bird by bird, buddy. Just take it bird by bird. That's the whole book, really. It's about showing up to the blank page every day, allowing yourself to write what she calls the shitty first draft — the messy, imperfect, uncensored version that no one will ever see — and trusting that the good writing lives somewhere inside it. Lamott is funny, honest, and painfully real. She writes about jealousy, self-doubt, and the tiny radio station in your head that tells you you're not good enough. But she also writes about the moments when writing works — when it connects you to something true about yourself and, through that, to other people. Whether you're a writer or not, Bird by Bird is a book about showing up to your creative life. Start today. Bird by bird."
     }
+  },
+  {
+    "date": "2026-03-17",
+    "book": {
+      "isbn": "9780593652886",
+      "title": "The Creative Act: A Way of Being",
+      "author": "Rick Rubin",
+      "category": "Creativity",
+      "desc": "A reflective guide to making art and living creatively, focused less on output and more on attention, openness, and the courage to keep beginning."
+    },
+    "quote": {
+      "text": "Creativity grows when you stop waiting for perfect conditions and return to the work with attention.",
+      "source": "Inspired by Rick Rubin, The Creative Act"
+    },
+    "podcast": {
+      "audioURL": "https://ia800905.us.archive.org/19/items/testmp3testfile/mpthreetest.mp3",
+      "duration": 27,
+      "teaser": "The work moves again the moment you stop trying to control every outcome and start listening for what wants to be made.",
+      "script": "Rick Rubin's The Creative Act is not really a book about becoming a professional artist. It is a book about becoming available to creativity in everyday life. Rubin argues that making things starts long before execution. It begins with attention: noticing what pulls at you, what repeats in your mind, what feels alive before you can explain it. The book keeps returning to a freeing idea. You do not have to force originality by sheer will. Your job is to build the conditions where better work can appear: protect your sensitivity, gather inputs carefully, and keep showing up even when the signal feels faint. That makes this book especially helpful for anyone stuck between perfectionism and procrastination. Rubin treats creativity less like a performance and more like a practice of listening. Today's invitation is simple: make one small thing without demanding that it prove anything. Give the work your attention first. Let meaning catch up afterward."
+    }
+  },
+  {
+    "date": "2026-03-21",
+    "book": {
+      "isbn": "9780374500016",
+      "title": "Night",
+      "author": "Elie Wiesel",
+      "category": "Memoir",
+      "desc": "A devastating firsthand account of surviving Auschwitz and Buchenwald, and the silence that follows when everything you believed in has been burned away."
+    },
+    "quote": {
+      "text": "The opposite of love is not hate, it’s indifference.",
+      "source": "Elie Wiesel"
+    }
   }
 ]

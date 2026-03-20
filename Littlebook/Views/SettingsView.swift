@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var store: ContentStore
+    @EnvironmentObject var notificationManager: NotificationManager
     
     var body: some View {
         NavigationStack {
@@ -47,13 +48,64 @@ struct SettingsView: View {
                 
                 // App Settings
                 Section {
+                    // Notification toggle
                     HStack {
-                        Label("Notifications", systemImage: "bell.badge")
+                        Label("Daily Notifications", systemImage: "bell.badge")
                         Spacer()
-                        Toggle("", isOn: .constant(true))
+                        Toggle("", isOn: Binding(
+                            get: { notificationManager.isNotificationsEnabled },
+                            set: { _ in
+                                Task {
+                                    await notificationManager.toggleNotifications()
+                                }
+                            }
+                        ))
+                    }
+
+                    // Notification time picker (only show when enabled)
+                    if notificationManager.isNotificationsEnabled {
+                        HStack {
+                            Label("Notification Time", systemImage: "clock")
+                            Spacer()
+                            DatePicker(
+                                "",
+                                selection: Binding(
+                                    get: { notificationManager.notificationTime },
+                                    set: { newTime in
+                                        Task {
+                                            await notificationManager.updateNotificationTime(newTime)
+                                        }
+                                    }
+                                ),
+                                displayedComponents: .hourAndMinute
+                            )
+                            .labelsHidden()
+                        }
+                    }
+
+                    // Notification status info
+                    if notificationManager.authorizationStatus == .denied {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .foregroundColor(.orange)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Notifications Disabled")
+                                    .font(.caption)
+                                    .fontWeight(.medium)
+                                Text("Enable in Settings to receive daily quotes")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                        }
+                        .padding(.vertical, 4)
                     }
                 } header: {
-                    Text("Preferences")
+                    Text("Notifications")
+                } footer: {
+                    if notificationManager.isNotificationsEnabled {
+                        Text("Get inspired daily with quotes delivered to your home screen.")
+                    }
                 }
                 
                 // About Section

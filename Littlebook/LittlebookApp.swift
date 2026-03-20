@@ -4,14 +4,28 @@ import SwiftUI
 struct LittlebookApp: App {
     @StateObject private var store = ContentStore()
     @StateObject private var podcastPlayer = PodcastPlayer()
+    @StateObject private var notificationManager = NotificationManager.shared
+    @StateObject private var favoritesManager = FavoritesManager.shared
 
     var body: some Scene {
         WindowGroup {
             MainTabView()
                 .environmentObject(store)
                 .environmentObject(podcastPlayer)
-                .task { await store.load() }
+                .environmentObject(notificationManager)
+                .environmentObject(favoritesManager)
+                .task {
+                    await store.load()
+                    await notificationManager.updateAuthorizationStatus()
+                }
                 .tint(Color(hex: "#F8705E"))
+                .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowDateFromNotification"))) { notification in
+                    if let userInfo = notification.userInfo,
+                       let dateString = userInfo["date"] as? String {
+                        // Handle notification tap - could update selected date in app
+                        print("Received notification tap for date: \(dateString)")
+                    }
+                }
         }
     }
 }
