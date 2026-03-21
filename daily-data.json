@@ -532,5 +532,19 @@
       "text": "The opposite of love is not hate, it’s indifference.",
       "source": "Elie Wiesel"
     }
+  },
+  {
+    "date": "2026-03-22",
+    "book": {
+      "isbn": "9798735249511",
+      "title": "Three Guineas",
+      "author": "Virginia Woolf",
+      "category": "Philosophy",
+      "desc": "A fierce, witty essay connecting the dots between patriarchy, education, and war — Woolf argues that the exclusion of women from public life is not a side effect of militarism but its root cause."
+    },
+    "quote": {
+      "text": "As a woman I have no country. As a woman I want no country. As a woman, my country is the whole world.",
+      "source": "Virginia Woolf, Three Guineas"
+    }
   }
 ]
