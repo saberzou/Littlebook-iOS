@@ -35,7 +35,6 @@
 		A1000021 /* daily-data.json in Resources */ = {isa = PBXBuildFile; fileRef = A2000021 /* daily-data.json */; };
 		A1000022 /* BookCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000022 /* BookCoverView.swift */; };
 		A1000023 /* BookMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000023 /* BookMotionManager.swift */; };
-		A1000024 /* BookShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = A2000024 /* BookShaders.metal */; };
 		A1000025 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2000025 /* CoreMotion.framework */; };
 		A1000030 /* PodcastPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000030 /* PodcastPlayer.swift */; };
 		A1000031 /* PodcastPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000031 /* PodcastPageView.swift */; };
@@ -285,7 +284,6 @@
 				A1000022 /* BookCoverView.swift in Sources */,
 				A1000023 /* BookMotionManager.swift in Sources */,
 				14670E182F5D1869009B184F /* SharedDataManager.swift in Sources */,
-				A1000024 /* BookShaders.metal in Sources */,
 				A1000030 /* PodcastPlayer.swift in Sources */,
 				A1000031 /* PodcastPageView.swift in Sources */,
 				14670E1C2F5DB195009B184F /* FavoritesView.swift in Sources */,

@@ -205,15 +205,6 @@ private extension Double {
 private extension View {
     @ViewBuilder
     func metalSpecular(rotation: Double, size: CGSize) -> some View {
-        if #available(iOS 17, *) {
-            self.colorEffect(
-                ShaderLibrary.bookSpecular(
-                    .float2(Float(size.width), Float(size.height)),
-                    .float(Float(rotation * .pi / 180.0))
-                )
-            )
-        } else {
-            self
-        }
+        self
     }
 }

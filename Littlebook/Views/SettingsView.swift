@@ -316,7 +316,9 @@ struct PricingOption: View {
     }
 }
 
-#Preview {
-    SettingsView()
-        .environmentObject(ContentStore())
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
+            .environmentObject(ContentStore())
+    }
 }

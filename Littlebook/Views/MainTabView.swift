@@ -39,7 +39,11 @@ struct MainTabView: View {
     }
     
     private var currentItem: DailyContent? {
-        store.item(for: selectedDate)
+        store.item(for: selectedDate) ?? store.preferredContent
+    }
+
+    private var defaultSelectedDate: String {
+        store.preferredContent?.date ?? ""
     }
 
     var body: some View {
@@ -70,12 +74,12 @@ struct MainTabView: View {
         }
         .onAppear {
             if selectedDate.isEmpty {
-                selectedDate = store.today?.date ?? ""
+                selectedDate = defaultSelectedDate
             }
         }
         .onChange(of: store.items.count) { _ in
-            if selectedDate.isEmpty {
-                selectedDate = store.today?.date ?? ""
+            if selectedDate.isEmpty || store.item(for: selectedDate) == nil {
+                selectedDate = defaultSelectedDate
             }
         }
         .onChange(of: selectedDate) { _ in

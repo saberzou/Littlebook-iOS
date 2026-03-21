@@ -62,7 +62,7 @@ class NotificationManager: ObservableObject {
         } else {
             // Redirect to settings
             if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(settingsURL)
+                await UIApplication.shared.open(settingsURL)
             }
         }
     }

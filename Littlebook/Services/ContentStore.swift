@@ -5,13 +5,19 @@ class ContentStore: ObservableObject {
     @Published var items: [DailyContent] = []
     @Published var isLoading = false
     @Published var error: String?
-
-    private let remoteURL = URL(string: "https://raw.githubusercontent.com/saberzou/Littlebook-iOS/main/daily-data.json")!
     private var coverCache: [String: URL] = [:]
+
+    var latest: DailyContent? {
+        items.last
+    }
 
     var today: DailyContent? {
         let dateStr = Self.dateString(from: Date())
-        return items.first { $0.date == dateStr } ?? items.last
+        return items.first { $0.date == dateStr }
+    }
+
+    var preferredContent: DailyContent? {
+        latest
     }
 
     func item(for date: String) -> DailyContent? {
@@ -37,26 +43,56 @@ class ContentStore: ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
-        do {
-            let (data, _) = try await URLSession.shared.data(from: remoteURL)
-            items = try JSONDecoder().decode([DailyContent].self, from: data)
+        let remoteItems = await loadRemoteItems()
 
-            // Save to shared container for widget access
-            SharedDataManager.shared.saveDailyContent(items)
-            SharedDataManager.shared.saveLastUpdateTime()
-        } catch {
-            // Try loading from shared container first
-            if let sharedItems = SharedDataManager.shared.loadDailyContent() {
-                items = sharedItems
-            } else if let url = Bundle.main.url(forResource: "daily-data", withExtension: "json"),
-                      let data = try? Data(contentsOf: url),
-                      let decoded = try? JSONDecoder().decode([DailyContent].self, from: data) {
-                items = decoded
-                // Save to shared container for widget access
-                SharedDataManager.shared.saveDailyContent(items)
-            } else {
-                self.error = "Failed to load content"
+        let bundledItems = loadBundledItems()
+        let sharedItems = SharedDataManager.shared.loadDailyContent() ?? []
+        let mergedItems = mergeContentSources([bundledItems, sharedItems, remoteItems])
+
+        if !mergedItems.isEmpty {
+            items = mergedItems
+            error = nil
+            SharedDataManager.shared.saveDailyContent(mergedItems)
+            if !remoteItems.isEmpty {
+                SharedDataManager.shared.saveLastUpdateTime()
             }
+        } else {
+            self.error = "Failed to load content"
+        }
+    }
+
+    private func loadRemoteItems() async -> [DailyContent] {
+        var snapshots: [RemoteFeedSnapshot] = []
+
+        for source in ContentFeeds.sources {
+            guard let snapshot = await fetchRemoteFeed(from: source) else { continue }
+            snapshots.append(snapshot)
+        }
+
+        let orderedRemoteItems = snapshots
+            .sorted(by: Self.remoteFeedSort)
+            .map(\.items)
+
+        return mergeContentSources(orderedRemoteItems)
+    }
+
+    private func fetchRemoteFeed(from source: ContentFeeds.Source) async -> RemoteFeedSnapshot? {
+        do {
+            var request = URLRequest(url: source.url)
+            request.cachePolicy = .reloadIgnoringLocalCacheData
+
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let http = response as? HTTPURLResponse,
+                  200..<300 ~= http.statusCode else {
+                return nil
+            }
+
+            let items = try JSONDecoder().decode([DailyContent].self, from: data)
+            guard !items.isEmpty else { return nil }
+
+            return RemoteFeedSnapshot(source: source, items: normalizeItems(items))
+        } catch {
+            return nil
         }
     }
 
@@ -136,5 +172,49 @@ class ContentStore: ObservableObject {
         f.dateFormat = "yyyy-MM-dd"
         f.timeZone = .current
         return f.string(from: date)
+    }
+
+    private func normalizeItems(_ items: [DailyContent]) -> [DailyContent] {
+        items.sorted { $0.date < $1.date }
+    }
+
+    private func loadBundledItems() -> [DailyContent] {
+        guard let url = Bundle.main.url(forResource: "daily-data", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let decoded = try? JSONDecoder().decode([DailyContent].self, from: data) else {
+            return []
+        }
+        return decoded
+    }
+
+    private func mergeContentSources(_ sources: [[DailyContent]]) -> [DailyContent] {
+        var itemsByDate: [String: DailyContent] = [:]
+        for source in sources {
+            for item in source {
+                itemsByDate[item.date] = item
+            }
+        }
+        return normalizeItems(Array(itemsByDate.values))
+    }
+
+    private struct RemoteFeedSnapshot {
+        let source: ContentFeeds.Source
+        let items: [DailyContent]
+
+        var latestDate: String {
+            items.map(\.date).max() ?? ""
+        }
+    }
+
+    private static func remoteFeedSort(lhs: RemoteFeedSnapshot, rhs: RemoteFeedSnapshot) -> Bool {
+        if lhs.latestDate != rhs.latestDate {
+            return lhs.latestDate < rhs.latestDate
+        }
+
+        if lhs.items.count != rhs.items.count {
+            return lhs.items.count < rhs.items.count
+        }
+
+        return lhs.source.priority < rhs.source.priority
     }
 }

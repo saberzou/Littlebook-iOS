@@ -5,7 +5,7 @@ Native iOS app for [Littlebook](https://saberzou.github.io/Littlebook/) — a da
 ## Architecture
 
 - **SwiftUI** — iOS 16+
-- **Data** — fetched from GitHub (`daily-data.json`), bundled copy as fallback
+- **Data** — fetched from the deployed website feed first, then the web repo raw JSON, with the iOS repo JSON kept as a legacy fallback
 - **Wallpapers** — Unsplash (hardcoded photo IDs, stable per date)
 - **Book covers** — Open Library API
 
@@ -42,7 +42,13 @@ To bundle `daily-data.json` in the app (e.g. for the daily-content flow), drag i
 
 ## Content Updates
 
-Content is fetched from this repo's `daily-data.json` at launch. To add new days, update the JSON and push — no app update needed.
+The iOS app now treats the web experience as the source of truth:
+
+- `https://saberzou.github.io/Littlebook/daily-data.json`
+- `https://raw.githubusercontent.com/saberzou/Littlebook/main/daily-data.json`
+- `https://raw.githubusercontent.com/saberzou/Littlebook-iOS/main/daily-data.json` as a legacy fallback
+
+That means when the website's `daily-data.json` gets new book, quote, wallpaper, or podcast entries, the iOS app can pick them up without shipping a new app update.
 
 ## TODO
 

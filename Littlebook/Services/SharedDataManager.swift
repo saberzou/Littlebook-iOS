@@ -47,13 +47,13 @@ class SharedDataManager {
     func getTodayContent() -> DailyContent? {
         guard let items = loadDailyContent() else { return nil }
 
-        let dateStr = ContentStore.dateString(from: Date())
+        let dateStr = dateString(from: Date())
         return items.first { $0.date == dateStr } ?? items.last
     }
 
     func getContentForDate(_ date: Date) -> DailyContent? {
         guard let items = loadDailyContent() else { return nil }
-        let dateStr = ContentStore.dateString(from: date)
+        let dateStr = dateString(from: date)
         return items.first { $0.date == dateStr }
     }
 
@@ -63,5 +63,12 @@ class SharedDataManager {
 
     func getLastUpdateTime() -> Date? {
         UserDefaults(suiteName: appGroupIdentifier)?.object(forKey: "lastUpdateTime") as? Date
+    }
+
+    private func dateString(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = .current
+        return formatter.string(from: date)
     }
 }

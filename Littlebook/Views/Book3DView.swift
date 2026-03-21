@@ -147,17 +147,18 @@ struct RoundedCorner: Shape {
     }
 }
 
-// Preview for testing
-#Preview {
-    VStack(spacing: 40) {
-        Book3DView(coverURL: nil, width: 80, height: 120)
-        
-        Book3DView(
-            coverURL: URL(string: "https://covers.openlibrary.org/b/isbn/9780140328721-L.jpg"),
-            width: 80,
-            height: 120
-        )
+struct Book3DView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 40) {
+            Book3DView(coverURL: nil, width: 80, height: 120)
+
+            Book3DView(
+                coverURL: URL(string: "https://covers.openlibrary.org/b/isbn/9780140328721-L.jpg"),
+                width: 80,
+                height: 120
+            )
+        }
+        .padding(60)
+        .background(Color.black)
     }
-    .padding(60)
-    .background(Color.black)
 }

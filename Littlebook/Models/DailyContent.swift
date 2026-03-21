@@ -1,5 +1,31 @@
 import Foundation
 
+enum ContentFeeds {
+    struct Source {
+        let name: String
+        let url: URL
+        let priority: Int
+    }
+
+    static let sources: [Source] = [
+        Source(
+            name: "website",
+            url: URL(string: "https://saberzou.github.io/Littlebook/daily-data.json")!,
+            priority: 3
+        ),
+        Source(
+            name: "web-repo",
+            url: URL(string: "https://raw.githubusercontent.com/saberzou/Littlebook/main/daily-data.json")!,
+            priority: 2
+        ),
+        Source(
+            name: "ios-repo-legacy",
+            url: URL(string: "https://raw.githubusercontent.com/saberzou/Littlebook-iOS/main/daily-data.json")!,
+            priority: 1
+        )
+    ]
+}
+
 struct DailyContent: Codable, Identifiable {
     var id: String { date }
     let date: String

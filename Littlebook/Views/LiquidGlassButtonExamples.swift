@@ -136,10 +136,14 @@ struct LiquidGlassButtonExamples: View {
     }
 }
 
-#Preview {
-    if #available(iOS 26.0, *) {
-        LiquidGlassButtonExamples()
-    } else {
-        Text("Liquid Glass requires iOS 26.0 or later")
+struct LiquidGlassButtonExamples_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            if #available(iOS 26.0, *) {
+                LiquidGlassButtonExamples()
+            } else {
+                Text("Liquid Glass requires iOS 26.0 or later")
+            }
+        }
     }
 }

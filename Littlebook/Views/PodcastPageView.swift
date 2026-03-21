@@ -17,6 +17,11 @@ struct PodcastPageView: View {
                 }
         } else {
             PodcastUnavailableView()
+                .task(id: item.date) {
+                    if player.currentPodcast != nil {
+                        player.stop()
+                    }
+                }
         }
     }
 }
